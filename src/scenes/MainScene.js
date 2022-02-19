@@ -17,6 +17,8 @@ export default class MainScene extends Phaser.Scene {
     super({
       key: "MainScene"
     });
+
+    this.score = 0;
   }
 
   preload() {
@@ -118,5 +120,6 @@ export default class MainScene extends Phaser.Scene {
   update() {
     // Place your code to update objects here...
     this.player.update(this.cursors);
+    this.scoreText.setText('Score: ' + this.score);
   }
 }
