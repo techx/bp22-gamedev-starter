@@ -93,6 +93,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.physics.add.collider(this.enemies, this.tilemap.foreground);
     this.physics.add.collider(this.enemies, this.tilemap.enemyCollider, (enemy, collider) => { enemy.turnAround(); })
+    this.physics.add.overlap(this.player, this.enemies, () => { this.player.handleDamage(); })
   }
 
   create() {
@@ -102,14 +103,15 @@ export default class MainScene extends Phaser.Scene {
     // Get input cursors.
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // Place the player in the center of the camera.
-    const x = this.cameras.main.centerX;
-    const y = this.cameras.main.centerY;
-
-    this.player = new Player(this, x, y);
-
     // Initialize our tilemap.
     this.tilemap = this.createTilemap();
+
+    // Place the player in the center of the camera.
+    const { player } = this.tilemap;
+    const x = player ? player.x : this.cameras.main.centerX;
+    const y = player ? player.y : this.cameras.main.centerY;
+
+    this.player = new Player(this, x, y);
 
     // Place 11 collectibles.
     this.collectibles = this.physics.add.group({
