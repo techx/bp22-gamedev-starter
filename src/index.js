@@ -4,6 +4,7 @@ import MainScene from './scenes/MainScene';
 const config = {
   type: Phaser.AUTO,
   parent: 'phaser-example',
+  pixelArt: true,
   width: 800,
   height: 600,
   scale: {
